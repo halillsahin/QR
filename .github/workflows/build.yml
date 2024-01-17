@@ -11,6 +11,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      
       - name: Get Date
         id: get-date
         run: |
@@ -39,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: ${{ needs.buildozer.outputs.filename }}
+          path: ${{needs.buildozer.outputs.filename}}
