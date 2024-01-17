@@ -22,7 +22,6 @@ import cv2
 from pyzbar.pyzbar import decode
 import os, sys
 from kivy.resources import resource_add_path, resource_find
-from kivy_deps import sdl2, glew
 
 Builder.load_string(
 """
@@ -213,28 +212,28 @@ Builder.load_string(
             size_hint_x:0.1
             size_hint_y:0.1
             pos_hint:{"x":0.12,"y":0.23}
-            source: r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/etsylogo.png"
+            source: "etsylogo.png"
             id:etsy
             on_touch_down: if self.collide_point(*args[1].pos): root.open_etsy()
           Image:
             size_hint_x:0.1
             size_hint_y:0.1
             pos_hint:{"x":0.45,"y":0.23}
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/logoyoutube.png"
+            source:"logoyoutube.png"
             id:youtube
             on_touch_down: if self.collide_point(*args[1].pos): root.open_youtube()
           Image:
             size_hint_x:0.1
             size_hint_y:0.1
             pos_hint:{"x":0.8,"y":0.23}
-            source: r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/downloader.png"
+            source: "downloader.png"
             id:downloader
             on_touch_down: if self.collide_point(*args[1].pos): root.open_downloader()
           Image:
             size_hint_x:0.1
             size_hint_y:0.1
             pos_hint:{"x":0.8,"y":0.23}
-            source: r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/mail.png" 
+            source: "mail.png" 
             id:mail
             on_touch_down: if self.collide_point(*args[1].pos): root.copy_text("startnowdoing@gmail.com")
 
@@ -248,19 +247,19 @@ Builder.load_string(
             size_hint_x:0.8
             size_hint_y:0.8
             pos_hint:{"x":0.8,"y":0.83}
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/garanti.png"
+            source:"garanti.png"
 
           Image:
             size_hint_x:0.8
             size_hint_y:0.8
             pos_hint:{"x":0.45,"y":0.83}
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/yapıkredi.jpg"
+            source:"yapıkredi.jpg"
 
           Image:
             size_hint_x:0.8
             size_hint_y:0.8
             pos_hint:{"x":0.12,"y":0.83}
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/ziraat.png"  
+            source:"ziraat.png"  
           Label:
             text:"Garanti Bankası"
             color:0,1,0,1
@@ -309,15 +308,15 @@ Builder.load_string(
           Image:
             size_hint_x:0.8
             size_hint_y:0.8
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/tether.png"
+            source:"tether.png"
           Image:
             size_hint_x:0.8
             size_hint_y:0.8
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/bitcoin.png"
+            source:"bitcoin.png"
           Image:
             size_hint_x:0.8
             size_hint_y:0.8
-            source:r"C:/Users/halil/OneDrive/Masaüstü/qruygulaması/bnb.png"
+            source:"bnb.png"
           Label:
             text:"USDT-TRC20 "
             font_size:20
