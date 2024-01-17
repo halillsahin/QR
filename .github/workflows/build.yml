@@ -12,23 +12,27 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'  
+
       - name: Get Date
         id: get-date
         run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
+          echo "date=$(date -u "+%Y%m%d")" >> $GITHUB_ENV
         shell: bash
 
       - name: Cache Buildozer global directory
         uses: actions/cache@v2
         with:
           path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
-      - name: Cache Buildozer
-        uses: actions/cache@v2
+      - uses: actions/cache@v2
         with:
           path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
+          key: ${{ runner.os }}-${{ needs.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
 
       - name: Build with Buildozer
         uses: ArtemSBulgakov/buildozer-action@v1
@@ -41,4 +45,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: package
-          path: ${{needs.buildozer.outputs.filename}}
+          path: ${{ needs.buildozer.outputs.filename }}
