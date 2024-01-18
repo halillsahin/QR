@@ -10,10 +10,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v8
+        uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v8
+        uses: actions/setup-node@v3
         with:
           node-version: '16'  
 
@@ -24,12 +24,12 @@ jobs:
         shell: bash
 
       - name: Cache Buildozer global directory
-        uses: actions/cache@v8
+        uses: actions/cache@v2
         with:
           path: .buildozer_global
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
-      - uses: actions/cache@v8
+      - uses: actions/cache@v2
         with:
           path: .buildozer
           key: ${{ runner.os }}-${{ needs.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
