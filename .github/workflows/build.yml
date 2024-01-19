@@ -1,48 +1,46 @@
-name: CI
+name: Build and Deploy APK
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          node-version: '16'  
+          python-version: 3.8
 
-      - name: Get Date
-        id: get-date
+      - name: Install Dependencies
         run: |
-          echo "date=$(date -u "+%Y%m%d")" >> $GITHUB_ENV
-        shell: bash
+          sudo apt-get update
+          sudo apt-get install -y \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            pkg-config \
+            libgl1-mesa-dev \
+            libgles2-mesa-dev \
+            python3-pip
+          pip install kivy
 
-      - name: Cache Buildozer global directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }}
+      - name: Build APK
+        run: |
+          # Add commands to build the APK using Kivy Buildozer
+          # For example:
+          # buildozer init
+          # buildozer -v android debug
 
-      - uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ needs.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
-
-      - name: Upload artifacts
+      - name: Upload APK to Releases
         uses: actions/upload-artifact@v2
         with:
-          name: package
-          path: ${{ needs.buildozer.outputs.filename }}
+          name: release-apk
+          path: ./bin/*.apk
