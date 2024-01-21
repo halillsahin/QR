@@ -1,42 +1,46 @@
-name: CI
+name: APK Oluştur ve Dağıt
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Depoyu Çek
+        uses: actions/checkout@v2
+        with:
+          node-version: '16'  
 
-      # used to cache dependencies with a timeout
-      - name: Get Date
-        id: get-date
+      - name: Python Kurulumu
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.11
+
+      - name: Bağımlılıkları Kur
         run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
+          sudo apt-get update
+          sudo apt-get install -y \
+            libsdl2-dev \
+            libsdl2-image-dev \
+            libsdl2-mixer-dev \
+            libsdl2-ttf-dev \
+            pkg-config \
+            libgl1-mesa-dev \
+            libgles2-mesa-dev \
+            python3-pip
+          pip install kivy
+          pip install buildozer
 
-      - name: Cache Buildozer global directory
-        uses: actions/cache@v2
-        with:
-          path: .buildozer_global
-          key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+      - name: APK Oluştur
+        run: |
+          buildozer -v android debug
 
-      - uses: actions/cache@v2
-        with:
-          path: .buildozer
-          key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
-
-      - name: Upload artifacts
+      - name: APK'yi Yayına Yükle
         uses: actions/upload-artifact@v2
         with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}
+          name: release-apk
+          path: ./bin/*.apk
