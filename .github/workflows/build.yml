@@ -13,7 +13,7 @@ jobs:
       - name: Depoyu Çek
         uses: actions/checkout@v2
         with:
-          node-version: '16'  
+          node-version: node.js-latest
 
       - name: Python Kurulumu
         uses: actions/setup-python@v2
