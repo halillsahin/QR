@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Depoyu Çek
-        uses: actions/checkout@v3
+        uses: actions/checkout@v16.13.2
 
       - name: Node.js Kurulumu
         run: |
@@ -21,7 +21,7 @@ jobs:
           nvm install 16.13.2
 
       - name: Python Kurulumu
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v3.11
         with:
           python-version: 3.11
 
