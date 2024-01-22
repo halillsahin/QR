@@ -12,8 +12,13 @@ jobs:
     steps:
       - name: Depoyu Çek
         uses: actions/checkout@v2
-        with:
-          node-version: node.js-latest
+
+      - name: Node.js Kurulumu
+        run: |
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 16.13.2
 
       - name: Python Kurulumu
         uses: actions/setup-python@v2
