@@ -503,7 +503,7 @@ class QROLUŞTUR(Screen):
               
             
       
-         # qrcode kütüphanesini yükleyin
+         
 
     
         # QR kodu oluşturmak için bir QRCode nesnesi oluşturun
@@ -579,7 +579,7 @@ class QROLUŞTUR(Screen):
               
                   
                   # Resmi aç
-              logo_path =QROLUŞTUR.selected_file # Kullanmak istediğiniz logo dosya yolu
+              logo_path =QROLUŞTUR.selected_file 
               logo = PILImage.open(logo_path)
               
               # Logo boyutunu QR koduyla aynı hale getir
@@ -609,7 +609,7 @@ class QROKUT(Screen):
     while True:
         _, frame = cap.read()
 
-        # Farklı iyileştirmeleri uygula
+        
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         blurred = cv2.GaussianBlur(gray, (5, 5), 0)
         _, threshold = cv2.threshold(blurred, 128, 255, cv2.THRESH_BINARY)
